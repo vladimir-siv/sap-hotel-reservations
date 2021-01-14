@@ -8,3 +8,7 @@ HMConsoleClient: .NET Core 3.1
 HMWinFormsClient: .NET Framework 4.7.2
 HMTests: .NET Framework 4.7.2
 C# Version: 7.3
+
+Additional Dependencies:
+	HMWinFormsClient + HMTests: System.Configuration.dll
+	HMConsoleClient: nuget System.Configuration.ConfigurationManager package (lastet ver)
