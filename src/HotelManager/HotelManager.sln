@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMConsoleClient", "HMConsoleClient\HMConsoleClient.csproj", "{C278DF8E-2764-4337-9391-539B0905E5CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMCore", "HMCore\HMCore.csproj", "{B374ACE7-EA5E-4A28-B01B-5F1614C2B9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HMCore", "HMCore\HMCore.csproj", "{B374ACE7-EA5E-4A28-B01B-5F1614C2B9A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMTests", "HMTests\HMTests.csproj", "{80624959-7AC8-4D54-9387-AFDB252EE405}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B374ACE7-EA5E-4A28-B01B-5F1614C2B9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B374ACE7-EA5E-4A28-B01B-5F1614C2B9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B374ACE7-EA5E-4A28-B01B-5F1614C2B9A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80624959-7AC8-4D54-9387-AFDB252EE405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80624959-7AC8-4D54-9387-AFDB252EE405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80624959-7AC8-4D54-9387-AFDB252EE405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80624959-7AC8-4D54-9387-AFDB252EE405}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

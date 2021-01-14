@@ -51,26 +51,36 @@ namespace HMCore.Database
 			if (hotel == null) throw new ArgumentNullException(nameof(hotel));
 			if (fromDay > toDay) throw new ApplicationException("From day cannot be larger than to day when making a reservation.");
 			
+			// By requirement, days are limited from 0 to 364 inclusive. If we don't want this
+			// constraint, simply delete the following line. Or, set the Config.MaxDay to 0 or less
+			// and there will not be any upper constraint.
+			if (fromDay < Config.MinDay || Config.MaxDay > 0 && toDay >= Config.MaxDay) return null;
+
 			var query =
 				from reservation in hotel.Reservations
 				where
 					fromDay <= reservation.FromDay && reservation.FromDay <= toDay
 					||
 					fromDay <= reservation.ToDay && reservation.ToDay <= toDay
+					||
+					reservation.FromDay <= fromDay && fromDay <= reservation.ToDay
+					||
+					reservation.FromDay <= toDay && toDay <= reservation.ToDay
 				orderby reservation.RoomID ascending
 				select reservation.RoomID;
 
-			List<uint> reservedRooms = query.ToList();
+			List<uint> reservedRooms = query.Distinct().ToList();
+			
+			uint i;
 
-			for (uint i = 0u; i < hotel.Rooms; ++i)
+			for (i = 0u; i < hotel.Rooms && i < reservedRooms.Count; ++i)
 			{
-				if (i < reservedRooms[(int)i])
-				{
-					return CreateReservation(hotel, i, fromDay, toDay);
-				}
+				if (i < reservedRooms[(int)i]) break;
 			}
 
-			return null;
+			if (i >= hotel.Rooms) return null;
+
+			return CreateReservation(hotel, i, fromDay, toDay);
 		}
 	}
 }
