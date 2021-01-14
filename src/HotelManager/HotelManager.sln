@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMTests", "HMTests\HMTests.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMConsoleClient", "HMConsoleClient\HMConsoleClient.csproj", "{9C25D02C-03F9-4C3D-BD33-8B58DBD36961}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWinFormsClient", "HMWinFormsClient\HMWinFormsClient.csproj", "{888103FA-C68D-4819-A022-A6DCB45FADFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9C25D02C-03F9-4C3D-BD33-8B58DBD36961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C25D02C-03F9-4C3D-BD33-8B58DBD36961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C25D02C-03F9-4C3D-BD33-8B58DBD36961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{888103FA-C68D-4819-A022-A6DCB45FADFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{888103FA-C68D-4819-A022-A6DCB45FADFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{888103FA-C68D-4819-A022-A6DCB45FADFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{888103FA-C68D-4819-A022-A6DCB45FADFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
