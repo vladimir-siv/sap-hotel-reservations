@@ -56,6 +56,32 @@ namespace HMCore.Database
 			// and there will not be any upper constraint.
 			if (fromDay < Config.MinDay || Config.MaxDay > 0 && toDay >= Config.MaxDay) return null;
 
+			IEnumerable<uint> availableRooms = GetAvailableRooms(hotel, fromDay, toDay);
+
+			if (availableRooms.Count() == 0u) return null;
+
+			Reservation leftBestFit = GetLeftBestFit(hotel, availableRooms, fromDay);
+			Reservation rightBestFit = GetRightBestFit(hotel, availableRooms, toDay);
+
+			uint i;
+
+			if (leftBestFit == null && rightBestFit == null) i = availableRooms.First();
+			else if (leftBestFit == null) i = rightBestFit.RoomID;
+			else if (rightBestFit == null) i = leftBestFit.RoomID;
+			else
+			{
+				if (fromDay - leftBestFit.ToDay <= rightBestFit.FromDay - toDay)
+					i = leftBestFit.RoomID;
+				else i = rightBestFit.RoomID;
+			}
+			
+			return CreateReservation(hotel, i, fromDay, toDay);
+		}
+
+		#region Helper methods
+
+		private IEnumerable<uint> GetAvailableRooms(Hotel hotel, int fromDay, int toDay)
+		{
 			var query =
 				from reservation in hotel.Reservations
 				where
@@ -66,21 +92,65 @@ namespace HMCore.Database
 					reservation.FromDay <= fromDay && fromDay <= reservation.ToDay
 					||
 					reservation.FromDay <= toDay && toDay <= reservation.ToDay
-				orderby reservation.RoomID ascending
 				select reservation.RoomID;
 
-			List<uint> reservedRooms = query.Distinct().ToList();
-			
-			uint i;
+			IEnumerable<uint> reservedRooms = query.Distinct();
 
-			for (i = 0u; i < hotel.Rooms && i < reservedRooms.Count; ++i)
+			return Enumerable.Range(0, (int)hotel.Rooms)
+				.Select(i => (uint)i)
+				.Except(reservedRooms);
+		}
+		private Reservation GetLeftBestFit(Hotel hotel, IEnumerable<uint> availableRooms, int fromDay)
+		{
+			var query =
+				from reservation in hotel.Reservations
+				where
+					availableRooms.Contains(reservation.RoomID)
+					&&
+					reservation.ToDay < fromDay
+				group reservation by reservation.RoomID into g
+				select new Reservation { RoomID = g.Key, ToDay = g.Max(r => r.ToDay) };
+
+			List<Reservation> left = query.ToList();
+
+			Reservation min = null;
+
+			foreach (Reservation res in left)
 			{
-				if (i < reservedRooms[(int)i]) break;
+				if (min == null || fromDay - res.ToDay < fromDay - min.ToDay)
+				{
+					min = res;
+				}
 			}
 
-			if (i >= hotel.Rooms) return null;
-
-			return CreateReservation(hotel, i, fromDay, toDay);
+			return min;
 		}
+		private Reservation GetRightBestFit(Hotel hotel, IEnumerable<uint> availableRooms, int toDay)
+		{
+			var query =
+				from reservation in hotel.Reservations
+				where
+					availableRooms.Contains(reservation.RoomID)
+					&&
+					toDay < reservation.FromDay
+				group reservation by reservation.RoomID into g
+				select new Reservation { RoomID = g.Key, FromDay = g.Min(r => r.FromDay) };
+
+			List<Reservation> right = query.ToList();
+
+			Reservation min = null;
+
+			foreach (Reservation res in right)
+			{
+				if (min == null || res.FromDay - toDay < min.FromDay - toDay)
+				{
+					min = res;
+				}
+			}
+
+			return min;
+		}
+
+		#endregion
 	}
 }
