@@ -27,14 +27,20 @@ namespace HMCore.Database
 		protected override IQueryable<Hotel>		Hotels			=> DBContext.Hotels;
 		protected override IQueryable<Reservation>	Reservations	=> DBContext.Reservations;
 
-		public override Hotel DefaultHotel => Hotels.FirstOrDefault(); // Or something similar, discussible
+		// Or something similar, debatable (it's not even necessary to have this prop anyway)
+		public override Hotel DefaultHotel => Hotels.FirstOrDefault();
 
 		public SQLDB()
 		{
-			if (DBContext.Hotels.Count == 0) // I'm not sure if Count exists, but something similar
+			if (DBContext.Hotels.Count == 0) // I'm not sure if Count exists, but something like this
 			{
 				CreateHotel("Initial Hotel");
 			}
+		}
+
+		public override void Dispose()
+		{
+			DBContext.Dispose();
 		}
 
 		protected override Hotel CreateHotel(string name)

@@ -13,7 +13,7 @@ namespace HMCore
 			if (Initialized) throw new ApplicationException("Application has already been initialized.");
 			if (settings == null) throw new ArgumentNullException(nameof(settings));
 
-			string aqn = typeof(App).AssemblyQualifiedName;
+			string aqn = typeof(HMDatabase).AssemblyQualifiedName;
 			string dbTypeAqn = settings["Database"] + aqn.Substring(aqn.IndexOf(','));
 			Type dbType = Type.GetType(dbTypeAqn);
 			HMDatabase db = (HMDatabase)Activator.CreateInstance(dbType);

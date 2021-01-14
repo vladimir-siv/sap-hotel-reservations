@@ -98,9 +98,9 @@ namespace HMTests
 			Assert.AreNotEqual(null, r3);
 			Assert.AreEqual(null, r4);
 
-			// TestCase3 extended =)
+			// TestCase3 bonus =)
 			// It is possible to add new rooms in the middle of the application,
-			// maybe they hired a construction company to build another floor. :)
+			// maybe they have hired a construction company to build another floor. :)
 			db.AddRoom(db.DefaultHotel);
 
 			r4 = db.MakeReservation(db.DefaultHotel, 0, 15);
