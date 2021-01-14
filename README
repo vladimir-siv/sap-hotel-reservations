@@ -1,2 +1,10 @@
 # sap-hotel-reservations
 SAP Interview Task
+
+Tested on: Windows 10 1909
+VS Version: 2019 16.7
+HMCore: .NET Standard 2.0
+HMConsoleClient: .NET Core 3.1
+HMWinFormsClient: .NET Framework 4.7.2
+HMTests: .NET Framework 4.7.2
+C# Version: 7.3
