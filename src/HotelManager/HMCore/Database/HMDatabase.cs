@@ -5,6 +5,12 @@ using HMCore.Models;
 
 namespace HMCore.Database
 {
+	// Essentially, this class represents a base class of any other
+	// potential data holder or a proxy to the data. It is flexible in the way
+	// that other types of databases could be easily integrated in the system.
+	// Check out the SQLDB.cs in this folder (it is excluded from the project
+	// because no real sql database has been added to the project).
+
 	public abstract class HMDatabase : IDisposable
 	{
 		protected abstract IQueryable<Hotel> Hotels { get; }

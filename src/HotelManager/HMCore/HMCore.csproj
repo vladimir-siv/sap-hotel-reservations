@@ -12,4 +12,8 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Database\SQLDB.cs" />
+  </ItemGroup>
+
 </Project>
